@@ -9,7 +9,11 @@ I got tired of slow RSS feeds or 3rd party guild monitoring sites not showing me
 3) This bot makes use of the Blizzard API
 4) You will need to add your own API oAuth credentials
 5) Make note of the baseUrl. If you are in the US, you need to update the URL to use us.api.blizzard.com instead
-6) You will need a base reference member list. See below for the format
+6) You will need to edit the guild URI to include your guild. You can use this format
+   ```
+   'data/wow/guild/REALM/GUILD-NAME/roster?namespace=profile-eu&locale=en_EU'
+   ```
+8) You will need a base reference member list. See below for the format
 
 The reason for this formatting is that when we pull the list of members in the guild from the Blizzard API, we filter out the data we don't care about and just capture the player names and class id's.
 This is then stored locally so that the next time we run the code, we have a baseline to compare to and check for any changes (leavers / joiners). This template should be saved as a members.txt file
