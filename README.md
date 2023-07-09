@@ -13,10 +13,8 @@ I got tired of slow RSS feeds or 3rd party guild monitoring sites not showing me
    ```
    'data/wow/guild/REALM/GUILD-NAME/roster?namespace=profile-eu&locale=en_EU'
    ```
-8) You will need a base reference member list. See below for the format
 
-The reason for this formatting is that when we pull the list of members in the guild from the Blizzard API, we filter out the data we don't care about and just capture the player names and class id's.
-This is then stored locally so that the next time we run the code, we have a baseline to compare to and check for any changes (leavers / joiners). This template should be saved as a members.txt file
+This project will create a text file called members.txt. This text file will be used as a baseline comparison for when the Blizzard API is called. When we call the API, we take the results from the API and compare them with the local file to look for changes. If there is a new entry in the API that is not in our local file, it means that someone has joined the guild. If we see the opposite, it means someone has left. Once we finish our comparison then the API response is written to members.txt and it becomes our new baseline for when this is next run. Example below of what members.txt looks like.
 ```
 [[{"name": "test1", "class": 5}], [{"name": "test2", "class": 9}], [{"name": "test3", "class": 8}], [{"name": "test4", "class": 2}], [{"name": "test5", "class": 8}]]
 ```

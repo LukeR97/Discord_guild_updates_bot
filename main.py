@@ -43,15 +43,23 @@ async def on_ready():
         guildies.append([{'name': name, 'class':playerClass}])
 
 
-    # In order for this code to work you need to have a master members.txt file with what is the current list of guild
-    # members. As the code will compare the local version with the API up to date version to determine leavers and
-    # joiners.
     json_data = json.dumps(guildies, ensure_ascii=False)
 
     # Get the local version of the guild member list
-    with open("members.txt", "r", encoding="utf-8") as tfile:
-        file_content = tfile.read()
-        tfile.close()
+    # If members.txt does not exist. Create a master file to use at the base
+    try:
+        with open("members.txt", "r", encoding="utf-8") as tfile:
+            file_content = tfile.read()
+            tfile.close()
+    except FileNotFoundError:
+        print("No base found. Creating base.")
+        with open('members.txt', 'w', encoding='utf-8') as tfile:
+            tfile.write(json_data + '\n')
+            tfile.close()
+    finally:
+        with open("members.txt", "r", encoding="utf-8") as tfile:
+            file_content = tfile.read()
+            tfile.close()
 
 
     file_content_json = json.loads(file_content)
