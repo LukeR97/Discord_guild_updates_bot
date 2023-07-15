@@ -14,6 +14,7 @@ CLIENT_SECRET = vars.CLIENT_SECRET
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
+classes = vars.classes
 #==========================================================
 
 # Our only bot event on startup
@@ -79,16 +80,12 @@ async def on_ready():
         if item not in guildies:
             leavers.append(item)
 
-    # This code is for filtering out only the names from the JSON list.
-    # I have plans to incorporate the class ID's to send a coloured message based
-    # on the class ID, but for now we only use the names
+    # This code is for filtering out the joiners and leavers.
     new_additions_json = json.dumps(new_additions)
     new_additions_json = json.loads(new_additions_json)
-    new_name_values = [item[0]['name'] for item in new_additions_json]
 
     leavers_json = json.dumps(leavers)
     leavers_json = json.loads(leavers_json)
-    leaver_name_values = [item[0]['name'] for item in leavers_json]
 
 
     # VERY IMPORTANT - We now need to save the API list to our local list as this will now
@@ -100,17 +97,23 @@ async def on_ready():
             tfile.close()
 
     # Here we post our output to the discord channel. Simply if there has been someone who joined
-    # we send the list of joiners in green and any leavers in red
+    # We send the list of joiners in green and any leavers in red
+    # We also use a list of custom emojis to post the appropriate emoji based on the class of the person
+    # This list will depend on the emojis you have on your server, so my list won't work as your list
     if channel:
         if new_additions != []:
             color = discord.Color.from_rgb(0, 255, 0)
-            for n in new_name_values:
-                embed = discord.Embed(description=str(n) + " Joined the guild!", color=color)
+            for n in new_additions_json:
+                emoji_id = classes[n[0]['class'] -1]
+                emoji = discord.utils.get(bot.emojis, id=int(emoji_id))
+                embed = discord.Embed(description=str(n[0]['name']) + f" {str(emoji)} Joined the guild!", color=color)
                 await channel.send(embed=embed)
         if leavers != []:
             color = discord.Color.from_rgb(255, 0, 0)
-            for n in leaver_name_values:
-                embed = discord.Embed(description=str(n) + " Left the guild!", color=color)
+            for n in leavers_json:
+                emoji_id = classes[n[0]['class'] -1]
+                emoji = discord.utils.get(bot.emojis, id=int(emoji_id))
+                embed = discord.Embed(description=str(n[0]['name']) + f" {str(emoji)} Left the guild!", color=color)
                 await channel.send(embed=embed)
         await bot.close()
     else:

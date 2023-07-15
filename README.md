@@ -14,6 +14,8 @@ I got tired of slow RSS feeds or 3rd party guild monitoring sites not showing me
    'data/wow/guild/REALM/GUILD-NAME/roster?namespace=profile-eu&locale=en_EU'
    ```
 
+7) You will need some emojis to represent the classes in wow. What I did was add each class as an emoji to my server and save their id's in a list.
+
 This project will create a text file called members.txt. This text file will be used as a baseline comparison for when the Blizzard API is called. When we call the API, we take the results from the API and compare them with the local file to look for changes. If there is a new entry in the API that is not in our local file, it means that someone has joined the guild. If we see the opposite, it means someone has left. Once we finish our comparison then the API response is written to members.txt and it becomes our new baseline for when this is next run. Example below of what members.txt looks like.
 ```
 [[{"name": "test1", "class": 5}], [{"name": "test2", "class": 9}], [{"name": "test3", "class": 8}], [{"name": "test4", "class": 2}], [{"name": "test5", "class": 8}]]
