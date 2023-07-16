@@ -35,7 +35,9 @@ python "C:\Users\user\path\to\main.py"
 
 ~~You'll notice that currently the class id's are not being used by the bot. My goal for this is to deploy a solution that when a joiner / leaver message is posted the class id will be used to alter the colour of the message so that we can tell the class of the person who joined / left~~ COMPLETE ! Now when someone joins or leaves their class emoji is included in the message.
 
-Another goal is to make it so that after the initial execution on startup, the bot will periodically check against the Blizzard API to see if there were any updates throughout the day. This should really only have to be done once or twice during the day as updates can be slow to reach the API
+~~Another goal is to make it so that after the initial execution on startup, the bot will periodically check against the Blizzard API to see if there were any updates throughout the day. This should really only have to be done once or twice during the day as updates can be slow to reach the API~~ COMPLETE ! Now the bot will run every six hours and is now hosted in the cloud so it is not relient on my local machine to run.
+
+Further improvements will be looking deeper into the Blizzard API to see what extra functionality is available. I would like to be able to automatically set notes on new members or alter their in-game rank, but we will have to see what limits are available.
 
 
 # Other Notes
