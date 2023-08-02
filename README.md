@@ -23,7 +23,7 @@ This project will create a text file called members.txt. This text file will be 
 
 # Using the Bot
 
-If you want, you can simply just run the bot whenever you please by triggering main.py, but the deployment I decided to go for was to create a simple **.bat** script to trigger the code when Discord is opened. You can copy the below and edit where your main.py is running from and where Discord.exe is opened from
+If you want, you can simply just run the bot whenever you please by triggering main.py, but the deployment I originally decided to go for was to create a simple **.bat** script to trigger the code when Discord is opened. Now I have the bot running in the cloud and this is not necessary with nohup, but you can copy the below and edit where your main.py is running from and where Discord.exe is opened from.
 
 ```
 @echo off
