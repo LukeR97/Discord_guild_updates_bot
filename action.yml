@@ -23,4 +23,8 @@ outputs:
   rpm_content_type:
     description: 'Content-type for Upload'
 
+runs:
+  using: 'python'
+  main: 'main.py'
 
+  
