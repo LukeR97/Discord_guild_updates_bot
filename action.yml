@@ -23,12 +23,4 @@ outputs:
   rpm_content_type:
     description: 'Content-type for Upload'
 
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
 
-branding:
-  icon: 'package'
-  color: 'red'
-
-  
