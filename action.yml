@@ -27,3 +27,5 @@ uses: actions/upload-artifacts@v3
   with:
     name: discord-guild-updates-bot-artifact
     path: /*
+
+    
