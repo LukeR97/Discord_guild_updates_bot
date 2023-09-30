@@ -23,9 +23,12 @@ outputs:
   rpm_content_type:
     description: 'Content-type for Upload'
 
-uses: actions/upload-artifacts@v3
-  with:
-    name: discord-guild-updates-bot-artifact
-    path: /*
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
 
-    
+branding:
+  icon: 'package'
+  color: 'red'
+
+  
