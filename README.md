@@ -39,11 +39,7 @@ python "C:\Users\user\path\to\main.py"
 
 Further improvements will be looking deeper into the Blizzard API to see what extra functionality is available. I would like to be able to automatically set notes on new members or alter their in-game rank, but we will have to see what limits are available.
 
-Currently working on getting the bot to be automatically deployed to Hetzner cloud upon a push to the repo being made. Currently configuring an RPM package to be created and will then be focusing on server deployment with Terraform.
-
-# Credits
-
-Credit for the RPM package builder using Github actions to https://github.com/naveenrajm7/rpmbuild
+Currently working on getting the bot to be automatically deployed to Hetzner cloud upon a push to the repo being made. Currently configuring a .deb package to be created and will then be focusing on server deployment with Terraform.
 
 
 # Other Notes

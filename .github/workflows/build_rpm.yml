@@ -1,20 +1,40 @@
-name: RPM Build
-on: push
+name: Build Debian Package
+
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: build RPM package
-      id: rpm
-      uses: LukeR97/Discord_guild_updates_bot@master
-      with:
-        spec_file: "config/discord_guild_updates.spec"
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10.5
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v1.0.0
-      with:
-        name: Binary RPM
-        path: ${{ steps.rpm.outputs.rpm_dir_path }}
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debhelper-compat=13 python3-all python3-setuptools dh-python
+
+      - name: Build .deb package
+        run: dpkg-buildpackage -us -uc
+
+      - name: Create artifacts
+        run: |
+          cd ..
+          ls -l
+          find .. -maxdepth 1 -type f -name '*.deb' -exec mv {} $GITHUB_WORKSPACE \;
+        working-directory: debian
+
+      - name: Upload .deb package
+        uses: actions/upload-artifact@v2
+        with:
+          name: deb-package
+          path: ${{ github.workspace }}/*.deb
