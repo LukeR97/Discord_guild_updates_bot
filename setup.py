@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Discord_guild_updates_bot',
+    name='discord_guild_updates_bot',
     version='1.0',
     packages=find_packages(),
     install_requires=[],
