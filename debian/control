@@ -1,4 +1,4 @@
-Source: discord_guild_updates_bot
+Source: discord-guild-updates-bot
 Section: python
 Maintainer: Luke Rothwell
 Build-Depends: debhelper-compat (= 13), python3-all, python3-setuptools
@@ -7,7 +7,7 @@ Homepage: https://github.com/LukeR97/Discord_guild_updates_bot
 Vcs-Git: https://github.com/LukeR97/Discord_guild_updates_bot.git
 Vcs-Browser: https://github.com/LukeR97/Discord_guild_updates_bot
 
-Package: discord_guild_updates_bot
+Package: discord-guild-updates-bot
 Architecture: all
 Depends: ${python3:Depends}, ${misc:Depends}
 Description: package containing the discord_guild_updates_bot to be deployed on Ubuntu
