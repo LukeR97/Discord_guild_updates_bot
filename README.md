@@ -41,6 +41,10 @@ Further improvements will be looking deeper into the Blizzard API to see what ex
 
 Currently working on getting the bot to be automatically deployed to Hetzner cloud upon a push to the repo being made. Currently configuring a .deb package to be created and will then be focusing on server deployment with Terraform.
 
+   1. ~~Add secrets to vars file~~ COMPLETE
+   2. ~~Create Debian package when code is pushed to Github repo~~ COMPLETE
+   3. Use Terraform and Github actions to recreate Hetzner server and deploy .deb package
+
 
 # Other Notes
 
