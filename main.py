@@ -15,7 +15,8 @@ CLIENT_SECRET = vars.CLIENT_SECRET
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
-classes = vars.classes
+# These are emoji ID's from the discord server
+classes = ['1129751196148703252','1129751178822033609','1129751187386806303','1129751181124710484','1129751191635640431','1129751175248478260','1129751173998575638','1129751189001609258','1129751193879597106','1129751183557394462','1129751186057216080','1129751235478687805','1129751177823780935']
 #==========================================================
 
 # Our only bot event on startup
