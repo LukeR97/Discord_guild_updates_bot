@@ -9,7 +9,7 @@ import asyncio
 #==========================================================
 # CONFIG
 baseUrl = 'https://eu.api.blizzard.com/'
-guildURI = vars.guildURI
+guildURI = vars.GUILDURI
 CLIENT_ID = vars.CLIENT_ID
 CLIENT_SECRET = vars.CLIENT_SECRET
 intents = discord.Intents.default()

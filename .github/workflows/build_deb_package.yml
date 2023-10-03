@@ -22,6 +22,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y debhelper-compat=13 python3-all python3-setuptools dh-python
+      
+      - name: Set up secrets
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          GUILDURI: ${{ secrets.GUILDURI }}
+          TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          sed -i "s|'${CLIENT_ID}'|'${CLIENT_ID}'|" vars.py
+          sed -i "s|'${CLIENT_SECRET}'|'${CLIENT_SECRET}'|" vars.py
+          sed -i "s|'${guildURI}'|'${guildURI}'|" vars.py
+          sed -i "s|'${TOKEN}'|'${TOKEN}'|" vars.py
 
       - name: Build .deb package
         run: dpkg-buildpackage -us -uc
