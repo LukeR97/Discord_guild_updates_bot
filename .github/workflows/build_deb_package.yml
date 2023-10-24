@@ -64,5 +64,5 @@ jobs:
 
       - name: Deploy Hetzner Server
         run: |
-          terraform apply -auto-approve
-        working-directory: path/to/terraform/files
+          terraform apply -auto-approve -var="hetzner_token=$HETZNER_TOKEN"
+        working-directory: /terraform
