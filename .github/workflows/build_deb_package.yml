@@ -58,7 +58,7 @@ jobs:
           terraform_version: 1.0.0
       
       - name: set HCLOUD_TOKEN
-        run: echo "hcloud_token = \"${HCLOUD_TOKEN}\"" >> terraform.auto.tfvars
+        run: echo "hcloud_token = \"${HETZNER_TOKEN}\"" >> terraform.auto.tfvars
     
       - name: Terraform Init
         run: terraform init
