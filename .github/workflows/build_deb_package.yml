@@ -64,3 +64,18 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+
+      - name: Get Server IP
+        id: server_ip
+        run: echo "::set-output name=server_ip::$(terraform output -json server_ip)"
+
+      - name: Deploy deb package
+        env:
+          SSH_PRIVATE_KEY:
+          SERVER_IP: ${{ steps.server_ip.outputs.server_ip }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > deploy_key
+          chmod 600 deploy_key
+          scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/deb-package.deb root@$SERVER_IP:/path/to/install/
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@$SERVER_IP "apt-get update && apt-get install -y /path/to/install/deb-package.deb"
+        shell: bash
