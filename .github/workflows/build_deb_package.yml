@@ -55,12 +55,9 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
-      
-      - name: set HCLOUD_TOKEN
-        run: echo "hcloud_token = ${{ secrets.HETZNER_TOKEN }}" >> terraform.auto.tfvars
     
       - name: Terraform Init
         run: terraform init
     
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
