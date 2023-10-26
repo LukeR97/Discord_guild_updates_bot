@@ -29,7 +29,6 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           GUILDURI: ${{ secrets.GUILDURI }}
           TOKEN: ${{ secrets.TOKEN }}
-          HETZNER_TOKEN: ${{ secrets.HETZNER_TOKEN }}
         run: |
           sed -i "s|'${CLIENT_ID}'|'${CLIENT_ID}'|" vars.py
           sed -i "s|'${CLIENT_SECRET}'|'${CLIENT_SECRET}'|" vars.py
@@ -58,7 +57,7 @@ jobs:
           terraform_version: 1.0.0
       
       - name: set HCLOUD_TOKEN
-        run: echo "hcloud_token = '${HETZNER_TOKEN}' >> terraform.auto.tfvars
+        run: echo "hcloud_token = '${{ secrets.HETZNER_TOKEN }}'" >> terraform.auto.tfvars
     
       - name: Terraform Init
         run: terraform init
