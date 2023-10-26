@@ -69,6 +69,9 @@ jobs:
         id: server_ip
         run: echo "::set-output name=server_ip::$(terraform output -json server_ip)"
 
+      - name: Wait for Server Available
+        run: sleep 60
+
       - name: Deploy deb package
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
