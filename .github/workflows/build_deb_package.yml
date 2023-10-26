@@ -71,7 +71,7 @@ jobs:
 
       - name: Deploy deb package
         env:
-          SSH_PRIVATE_KEY:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SERVER_IP: ${{ steps.server_ip.outputs.server_ip }}
         run: |
           echo "$SSH_PRIVATE_KEY" > deploy_key
