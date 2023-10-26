@@ -51,3 +51,17 @@ jobs:
         with:
           name: deb-package
           path: ${{ github.workspace }}/*.deb
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+      
+      - name: set HCLOUD_TOKEN
+        run: echo "hcloud_token = \"${HCLOUD_TOKEN}\"" >> terraform.auto.tfvars
+    
+      - name: Terraform Init
+        run: terraform init
+    
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
