@@ -4,5 +4,5 @@ terraform {
         source = "hetznercloud/hcloud"
     }
   }
-  required_version = ">= 1.44.1"
+  required_version = ">= 0.13"
 }
