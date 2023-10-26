@@ -13,43 +13,43 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.10.5
+      # - name: Set up Python
+      #   uses: actions/setup-python@v2
+      #   with:
+      #     python-version: 3.10.5
 
-      - name: Install build dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y debhelper-compat=13 python3-all python3-setuptools dh-python
+      # - name: Install build dependencies
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y debhelper-compat=13 python3-all python3-setuptools dh-python
       
-      - name: Set up secrets
-        env:
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-          GUILDURI: ${{ secrets.GUILDURI }}
-          TOKEN: ${{ secrets.TOKEN }}
-        run: |
-          sed -i "s|'${CLIENT_ID}'|'${CLIENT_ID}'|" vars.py
-          sed -i "s|'${CLIENT_SECRET}'|'${CLIENT_SECRET}'|" vars.py
-          sed -i "s|'${guildURI}'|'${guildURI}'|" vars.py
-          sed -i "s|'${TOKEN}'|'${TOKEN}'|" vars.py
+      # - name: Set up secrets
+      #   env:
+      #     CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      #     CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      #     GUILDURI: ${{ secrets.GUILDURI }}
+      #     TOKEN: ${{ secrets.TOKEN }}
+      #   run: |
+      #     sed -i "s|'${CLIENT_ID}'|'${CLIENT_ID}'|" vars.py
+      #     sed -i "s|'${CLIENT_SECRET}'|'${CLIENT_SECRET}'|" vars.py
+      #     sed -i "s|'${guildURI}'|'${guildURI}'|" vars.py
+      #     sed -i "s|'${TOKEN}'|'${TOKEN}'|" vars.py
 
-      - name: Build .deb package
-        run: dpkg-buildpackage -us -uc
+      # - name: Build .deb package
+      #   run: dpkg-buildpackage -us -uc
 
-      - name: Create artifacts
-        run: |
-          cd ..
-          ls -l
-          find .. -maxdepth 1 -type f -name '*.deb' -exec mv {} $GITHUB_WORKSPACE \;
-        working-directory: debian
+      # - name: Create artifacts
+      #   run: |
+      #     cd ..
+      #     ls -l
+      #     find .. -maxdepth 1 -type f -name '*.deb' -exec mv {} $GITHUB_WORKSPACE \;
+      #   working-directory: debian
 
-      - name: Upload .deb package
-        uses: actions/upload-artifact@v2
-        with:
-          name: deb-package
-          path: ${{ github.workspace }}/*.deb
+      # - name: Upload .deb package
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: deb-package
+      #     path: ${{ github.workspace }}/*.deb
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
@@ -57,7 +57,7 @@ jobs:
           terraform_version: 1.0.0
       
       - name: set HCLOUD_TOKEN
-        run: echo "hcloud_token = ${{ secrets.HETZNER_TOKEN }} >> terraform.auto.tfvars
+        run: echo "hcloud_token = "${{ secrets.HETZNER_TOKEN }}" >> terraform.auto.tfvars
     
       - name: Terraform Init
         run: terraform init
