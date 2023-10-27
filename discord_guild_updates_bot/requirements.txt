@@ -70,7 +70,6 @@ ufw
 unattended-upgrades
 urllib3
 wadllib
-xkit
 yarl
 zipp
 zope.interface
