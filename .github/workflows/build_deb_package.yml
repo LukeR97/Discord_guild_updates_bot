@@ -68,9 +68,8 @@ jobs:
       - name: Get Server IP
         id: server_ip
         run: |
-          echo "SERVER_IP=$(terraform output -json server_ip | jq -r '.')" >> server_ip.txt
-          export SERVER_IP=$(cat server_ip.txt)
-          echo "::set-env name=SERVER_IP::$SERVER_IP"
+          echo "::set-output name=server_ip::$(terraform output -json server_ip)" > server_ip.txt
+          cat server_ip.txt >> $GITHUB_ENV
 
       - name: Wait for Server Available
         run: sleep 30
