@@ -66,7 +66,6 @@ ssh-import-id
 systemd-python
 Twisted
 ubuntu-advantage-tools
-ubuntu-drivers-common
 ufw
 unattended-upgrades
 urllib3
