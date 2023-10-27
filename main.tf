@@ -7,6 +7,7 @@ resource "hcloud_server" "discord-guild-updates" {
   image = "ubuntu-20.04"
   server_type  = "cx11"
   datacenter = "nbg1-dc3"
+  public_key = var.hcloud_key_pub
 
   lifecycle {
     create_before_destroy = true
