@@ -67,7 +67,9 @@ jobs:
 
       - name: Get Server IP
         id: server_ip
-        run: echo "::set-output name=server_ip::$(terraform output -json server_ip)" >> $SERVER_IP
+        run: |
+          echo "::set-output name=server_ip::$(terraform output -json server_ip)"
+          echo "::set-env name=SERVER_IP::$server_ip"
 
       - name: Wait for Server Available
         run: sleep 30
@@ -76,9 +78,9 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
-          echo $SERVER_IP
           echo "$SSH_PRIVATE_KEY" > deploy_key
+          echo $SERVER_IP
           chmod 600 deploy_key
-          scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/deb-package.deb root@${SERVER_IP}:/etc/discord-guild-updates
+          scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/deb-package.deb root@$SERVER_IP:/etc/discord-guild-updates
           ssh -i deploy_key -o StrictHostKeyChecking=no root@${SERVER_IP} "apt-get update && apt-get install -y /etc/discord-guild-updates/deb-package.deb"
         shell: bash
