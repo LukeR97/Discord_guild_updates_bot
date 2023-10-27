@@ -82,8 +82,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           echo "$SSH_PRIVATE_KEY" > deploy_key
-          echo $SERVER_IP
           chmod 600 deploy_key
-          scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/deb-package.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc/discord-guild-updates
+          scp -i deploy_key -o StrictHostKeyChecking=no -vvv ${{ github.workspace }}/deb-package.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc/discord-guild-updates
           ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt-get update && apt-get install -y /etc/discord-guild-updates/deb-package.deb"
         shell: bash
