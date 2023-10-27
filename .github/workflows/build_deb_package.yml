@@ -61,8 +61,8 @@ jobs:
         run: terraform init -upgrade
     
       - name: Terraform Plan
-       # run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -var="hcloud_key_pub=${{ secrets.SSH_PUBLIC_KEY }}" -out=tfplan
-        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
+        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -var="hcloud_key_pub=${{ secrets.SSH_PUBLIC_KEY }}" -out=tfplan
+       # run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
