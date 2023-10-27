@@ -61,7 +61,7 @@ jobs:
         run: terraform init -upgrade
     
       - name: Terraform Plan
-        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -var="hcloud_key_pub=${{ secrets.SSH_PUBLIC_KEY }}" -out=tfplan
+       # run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -var="hcloud_key_pub=${{ secrets.SSH_PUBLIC_KEY }}" -out=tfplan
        # run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
 
       - name: Terraform Apply
@@ -83,6 +83,6 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > deploy_key
           chmod 600 deploy_key
-          scp -i deploy_key -o StrictHostKeyChecking=no -vvv ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc/discord-guild-updates
-          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt-get update && apt-get install -y /etc/discord-guild-updates/deb-package.deb"
+          scp -i deploy_key -o StrictHostKeyChecking=no -vvv ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt-get update && apt-get install -y /etc/deb-package.deb"
         shell: bash
