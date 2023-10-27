@@ -84,7 +84,7 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > deploy_key
           chmod 600 deploy_key
           ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt-get update && apt-get install -y python3-pip"
-          scp -i deploy_key -o StrictHostKeyChecking=no -vvv ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc
+          scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc
           ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "dpkg -i /etc/*.deb"
           ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "pip install -r /usr/lib/python3/dist-packages/discord_guild_updates_bot/requirements.txt"
         shell: bash
