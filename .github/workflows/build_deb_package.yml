@@ -84,5 +84,5 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > deploy_key
           chmod 600 deploy_key
           scp -i deploy_key -o StrictHostKeyChecking=no -vvv ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc
-          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt-get update && apt-get install -y /etc/deb-package.deb"
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "dpkg -i /etc/*.deb"
         shell: bash
