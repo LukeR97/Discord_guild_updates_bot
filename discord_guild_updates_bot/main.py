@@ -3,7 +3,7 @@ from urllib.parse import urljoin
 import json
 import discord
 from discord.ext import commands
-import vars
+import discord_guild_updates_bot.vars as vars
 import asyncio
 
 #==========================================================

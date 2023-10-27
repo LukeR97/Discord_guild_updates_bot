@@ -7,7 +7,7 @@ setup(
     install_requires=[],
     entry_points={
         'console_scripts': [
-            'discord-guild-updates = Discord_guild_updates_bot.main:main',
+            'discord-guild-updates = discord_guild_updates_bot.main:main',
         ],
     },
 )
