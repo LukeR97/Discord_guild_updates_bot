@@ -7,11 +7,16 @@ resource "hcloud_server" "discord-guild-updates" {
   image = "ubuntu-20.04"
   server_type  = "cx11"
   datacenter = "nbg1-dc3"
-  public_key = var.hcloud_key_pub
+  ssh_keys = [hcloud_ssh_key.default.id]
 
   lifecycle {
     create_before_destroy = true
   }
+}
+
+resource "hcloud_ssh_key" "default" {
+  name = "default"
+  public_key = var.hcloud_key_pub
 }
 
 output "server_ip" {
