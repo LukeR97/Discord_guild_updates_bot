@@ -35,7 +35,7 @@ jobs:
       #     sed -i "s|'${guildURI}'|'${guildURI}'|" ./discord_guild_updates_bot/vars.py
       #     sed -i "s|'${TOKEN}'|'${TOKEN}'|" ./discord_guild_updates_bot/vars.py
 
-      - name: Set up secrets bot version
+      - name: Set up secrets
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
