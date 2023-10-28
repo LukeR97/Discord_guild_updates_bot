@@ -55,8 +55,6 @@ pyserial
 python-apt
 python-debian
 python-magic
-pytz
-PyYAML
 requests
 SecretStorage
 service-identity
