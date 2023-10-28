@@ -94,11 +94,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > deploy_key
           chmod 600 deploy_key
-          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "\
-          apt-get update && apt-get install -y python3-pip; \
-          sudo apt install -y libcairo2-dev pkg-config python3-dev; \
-          scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc; \
-          dpkg -i /etc/*.deb; \
-          pip install --upgrade pip; \
-          pip install -r /usr/lib/python3/dist-packages/discord_guild_updates_bot/requirements.txt"
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt-get update && apt-get install -y python3-pip; sudo apt install -y libcairo2-dev pkg-config python3-dev"
+          scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "dpkg -i /etc/*.deb; pip install --upgrade pip; pip install -r /usr/lib/python3/dist-packages/discord_guild_updates_bot/requirements.txt"
         shell: bash
