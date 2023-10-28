@@ -44,7 +44,7 @@ jobs:
         run: |
           sed -i "s|'CLIENT_ID'|'${{ secrets.CLIENT_ID }}'|" ./discord_guild_updates_bot/vars.py
           sed -i "s|'CLIENT_SECRET'|'${{ secrets.CLIENT_SECRET }}'|" ./discord_guild_updates_bot/vars.py
-          sed -i "s|'GUILD'|'${{ secrets.GUILDURI }}'|" ./discord_guild_updates_bot/vars.py
+          sed -i -e "s|'GUILD'|'${{ secrets.GUILDURI }}'|" ./discord_guild_updates_bot/vars.py
           sed -i "s|'TOKEN'|'${{ secrets.TOKEN }}'|" ./discord_guild_updates_bot/vars.py
 
       - name: Build .deb package
