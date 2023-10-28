@@ -1,4 +1,4 @@
-CLIENT_ID = '${{ secrets.CLIENT_ID }}'
-CLIENT_SECRET = '${{ secrets.CLIENT_SECRET }}'
-GUILDURI = '${{ secrets.GUILDURI }}'
-TOKEN = '${{ secrets.TOKEN }}'
+CLIENT_ID = 'CLIENT_ID'
+CLIENT_SECRET = 'CLIENT_SECRET'
+GUILDURI = 'GUILDURI'
+TOKEN = 'TOKEN'
