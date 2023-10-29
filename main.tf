@@ -1,3 +1,9 @@
+terraform{
+  backend "local" {
+    path = "/etc/terraform/state/"
+  }
+}
+
 provider "hcloud" {
   token = var.hcloud_token
 }
