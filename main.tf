@@ -1,8 +1,8 @@
-terraform{
-  backend "local" {
-    path = "/etc"
-  }
-}
+# terraform{
+#   backend "local" {
+#     path = "/etc"
+#   }
+# }
 
 provider "hcloud" {
   token = var.hcloud_token
