@@ -26,11 +26,11 @@ jobs:
       - name: Get current server ID
         id: get_server_id
         env: 
-          SERVER_NAME: "discord-guild-updates"
+          SERVER_NAME: "ubuntu-2gb-nbg1-1"
         run: |
           HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers")
           SERVER_ID=$(echo "$HETZNER_RESPONSE" | jq -r ".servers[] | select(.name == \"$SERVER_NAME\") | .id")
-          echo server_id=SERVER_ID >> $SERVER_ID_OUTPUT
+        #  echo server_id=SERVER_ID >> $SERVER_ID_OUTPUT
         #  echo "server_id=$SERVER_ID" >> $SERVER_ID_OUTPUT
         #  echo "::set-output name=server_id::$SERVER_ID"
         #  echo $server_id
