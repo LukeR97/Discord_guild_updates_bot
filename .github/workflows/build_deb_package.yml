@@ -65,7 +65,7 @@ jobs:
         run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan -lock=false
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan -lock=false
 
       - name: Get Server IP
         id: server_ip
