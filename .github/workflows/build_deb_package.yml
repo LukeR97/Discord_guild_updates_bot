@@ -30,9 +30,8 @@ jobs:
         run: |
           HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers")
           SERVER_ID=$(echo "$HETZNER_RESPONSE" | jq -r ".servers[] | select(.name == \"$SERVER_NAME\") | .id")
-          echo SERVER_ID
           echo $SERVER_ID
-        #  echo server_id=SERVER_ID >> $SERVER_ID_OUTPUT
+          echo server_id=SERVER_ID >> $SERVER_ID_OUTPUT
         #  echo "server_id=$SERVER_ID" >> $SERVER_ID_OUTPUT
         #  echo "::set-output name=server_id::$SERVER_ID"
         #  echo $server_id
@@ -43,7 +42,7 @@ jobs:
         id: get_server_ip
         run: |
           SERVER_ID=${{ steps.get_server_id.outputs.server_id }}
-          HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers/$SERVER_ID")
+          HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers/$SERVER_ID_OUTPUT")
           SERVER_IP=$(echo "$HETZNER_RESPONSE" | jq -r '.server.public_net.ipv4.ip')
           echo "::set-output name=server_ip::$SERVER_IP"
         shell: bash
