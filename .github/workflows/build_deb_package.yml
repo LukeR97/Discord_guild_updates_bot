@@ -53,19 +53,19 @@ jobs:
         with:
           terraform_version: 1.6.2
           terraform_wrapper: false
-    
+
       - name: Terraform Init
-        run: terraform init -backend-config="username=${{ secrets.GHUB_UNAME }}" -backend-config="password=${{ secrets.GHUB_PASS }}"
+        run: terraform init -upgrade
     
       # - name: Terraform Destory
       #   run: terraform destroy -target=hcloud_server.discord-guild-updates -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
       #   continue-on-error: true
 
       - name: Terraform Plan
-        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan -lock=false
+        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -lock=false tfplan
+        run: terraform apply -auto-approve tfplan
 
       - name: Get Server IP
         id: server_ip
