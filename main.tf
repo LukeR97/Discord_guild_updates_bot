@@ -1,6 +1,6 @@
 # terraform{
 #   backend "local" {
-#     path = "/etc"
+#     path = "/etc/terraform"
 #   }
 # }
 

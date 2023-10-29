@@ -32,6 +32,7 @@ jobs:
           SERVER_ID=$(echo "$HETZNER_RESPONSE" | jq -r ".servers[] | select(.name == \"$SERVER_NAME\") | .id")
           echo "::set-output name=server_id::$SERVER_ID"
         shell: bash
+        continue-on-error: true
 
       - name: get current server IP
         id: get_server_ip
@@ -41,7 +42,7 @@ jobs:
           SERVER_IP=$(echo "$HETZNER_RESPONSE" | jq -r '.server.public_net.ipv4.ip')
           echo "::set-output name=server_ip::$SERVER_IP"
         shell: bash
-
+        continue-on-error: true
 
       - name: Set up secrets
         env:
@@ -67,6 +68,14 @@ jobs:
         with:
           name: deb-package
           path: ${{ github.workspace }}/*.deb
+
+
+      - name: Retrieve TF state
+        run: |
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }} "mkdir -p /etc/terraform"
+          scp -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate .
+        shell: bash
+        continue-on-error: true
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
