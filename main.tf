@@ -1,3 +1,13 @@
+terraform {
+  backend "http" {
+    address = "https://github.com/LukeR97/dgub-tfstate.git"
+    lock_address = "https://github.com/LukeR97/dgub-tfstate.git/lock"
+    unlock_address = "https://github.com/LukeR97/dgub-tfstate.git/unlock"
+    username = "test"
+    password = "test"
+  }
+}
+
 provider "hcloud" {
   token = var.hcloud_token
 }
