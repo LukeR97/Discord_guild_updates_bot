@@ -26,15 +26,11 @@ jobs:
       - name: Get current server ID
         id: get_server_id
         env: 
-          SERVER_NAME: "ubuntu-2gb-nbg1-1"
+          SERVER_NAME: "discord-guild-updates"
         run: |
           HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers")
           SERVER_ID=$(echo "$HETZNER_RESPONSE" | jq -r ".servers[] | select(.name == \"$SERVER_NAME\") | .id")
-          echo $SERVER_ID
           echo "server_id=$SERVER_ID" >> $GITHUB_OUTPUT
-        # echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
-        #  echo "server_id=$SERVER_ID" >> $SERVER_ID_OUTPUT
-        #  echo "::set-output name=server_id::$SERVER_ID"
         shell: bash
         continue-on-error: true
 
@@ -44,7 +40,7 @@ jobs:
           SERVER_ID=${{ steps.get_server_id.outputs.server_id }}
           HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers/${{ steps.get_server_id.outputs.server_id }}")
           SERVER_IP=$(echo "$HETZNER_RESPONSE" | jq -r '.server.public_net.ipv4.ip')
-          echo "::set-output name=server_ip::$SERVER_IP"
+          echo "server_ip=$SERVER_IP" >> $GITHUB_OUTPUT
         shell: bash
         continue-on-error: true
 
@@ -81,29 +77,29 @@ jobs:
         shell: bash
         continue-on-error: true
 
-      # - name: Set up Terraform
-      #   uses: hashicorp/setup-terraform@v1
-      #   with:
-      #     terraform_version: 1.6.2
-      #     terraform_wrapper: false
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.6.2
+          terraform_wrapper: false
 
-      # - name: Terraform Init
-      #   run: terraform init -upgrade
+      - name: Terraform Init
+        run: terraform init -upgrade
     
-      # # - name: Terraform Destory
-      # #   run: terraform destroy -target=hcloud_server.discord-guild-updates -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
-      # #   continue-on-error: true
+      # - name: Terraform Destory
+      #   run: terraform destroy -target=hcloud_server.discord-guild-updates -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
+      #   continue-on-error: true
 
-      # - name: Terraform Plan
-      #   run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
+      - name: Terraform Plan
+        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
 
-      # - name: Terraform Apply
-      #   run: terraform apply -auto-approve tfplan
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan
 
-      # - name: Get New Server IP
-      #   id: server_ip
-      #   run: |
-      #     echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
+      - name: Get New Server IP
+        id: server_ip
+        run: |
+          echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
 
       # - name: Wait for Server to boot
       #   run: |
