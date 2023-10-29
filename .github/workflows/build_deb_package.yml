@@ -62,7 +62,7 @@ jobs:
       #   continue-on-error: true
 
       - name: Terraform Plan
-        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
+        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan -lock=false
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
