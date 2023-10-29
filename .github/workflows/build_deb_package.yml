@@ -84,7 +84,7 @@ jobs:
           terraform_wrapper: false
 
       - name: Terraform Init
-        run: terraform init -upgrade
+        run: terraform init -upgrade -backend-config="path=/etc/terraform/"
     
       # - name: Terraform Destory
       #   run: terraform destroy -target=hcloud_server.discord-guild-updates -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve

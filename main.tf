@@ -1,8 +1,8 @@
-# terraform{
-#   backend "local" {
-#     path = "/etc/terraform"
-#   }
-# }
+terraform{
+  backend "local" {
+    path = "/etc/terraform"
+  }
+}
 
 provider "hcloud" {
   token = var.hcloud_token
