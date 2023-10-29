@@ -16,7 +16,6 @@ resource "hcloud_server" "discord-guild-updates" {
 
 resource "hcloud_ssh_key" "default" {
   name = "default"
-  public_key = var.hcloud_key_pub
 }
 
 output "server_ip" {
