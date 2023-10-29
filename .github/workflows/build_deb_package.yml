@@ -78,7 +78,7 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
 
-      - name: Get Server IP
+      - name: Get New Server IP
         id: server_ip
         run: |
           echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT

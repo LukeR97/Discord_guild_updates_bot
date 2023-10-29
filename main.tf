@@ -1,6 +1,6 @@
 terraform{
   backend "local" {
-    path = "/etc/terraform/state/"
+    path = "/etc"
   }
 }
 
