@@ -1,8 +1,8 @@
 terraform {
   backend "http" {
-    address = "https://github.com/LukeR97/dgub-tfstate.git"
-    lock_address = "https://github.com/LukeR97/dgub-tfstate.git/lock"
-    unlock_address = "https://github.com/LukeR97/dgub-tfstate.git/unlock"
+    address = "https://github.com/LukeR97/dgub-tfstate/blob/main/terraform.tfstate"
+    lock_address = "https://github.com/LukeR97/dgub-tfstate/blob/main/terraform.tfstate/lock"
+    unlock_address = "https://github.com/LukeR97/dgub-tfstate/blob/main/terraform.tfstate/unlock"
     username = "test"
     password = "test"
   }
