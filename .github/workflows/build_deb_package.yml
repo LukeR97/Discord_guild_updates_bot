@@ -23,15 +23,24 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y debhelper-compat=13 python3-all python3-setuptools dh-python
 
-      # - name: Get current server ID
-      #   id: get_server_id
-      #   env: 
-      #     SERVER_NAME: "discord-guild-updates"
-      #   run: |
-      #     HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers")
-      #     SERVER_ID=$(echo "$HETZNER_RESPONSE" | jq -r ".servers[] | select(.name == \"$SERVER_NAME\") | .id")
-      #     echo "::set-output name=server_id::$SERVER_ID"
-      #   shell: bash
+      - name: Get current server ID
+        id: get_server_id
+        env: 
+          SERVER_NAME: "discord-guild-updates"
+        run: |
+          HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers")
+          SERVER_ID=$(echo "$HETZNER_RESPONSE" | jq -r ".servers[] | select(.name == \"$SERVER_NAME\") | .id")
+          echo "::set-output name=server_id::$SERVER_ID"
+        shell: bash
+
+      - name: get current server IP
+        id: get_server_ip
+        run: |
+          SERVER_ID=${{ steps.get_server_id.outputs.server_id }}
+          HETZNER_RESPONSE=$(curl -s -H "Authorization: Bearer ${{ secrets.HETZNER_TOKEN }}" "https://api.hetzner.cloud/v1/servers/$SERVER_ID")
+          SERVER_IP=$(echo "$HETZNER_RESPONSE" | jq -r '.server.public_net.ipv4.ip')
+          echo "::set-output name=server_ip::$SERVER_IP"
+        shell: bash
 
 
       - name: Set up secrets
