@@ -57,6 +57,10 @@ jobs:
       - name: Terraform Init
         run: terraform init -upgrade
     
+      - name: Terraform Destory
+        run: terraform destroy -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
+        continue-on-error: true
+
       - name: Terraform Plan
         run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
 
