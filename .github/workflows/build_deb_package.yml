@@ -68,7 +68,7 @@ jobs:
         run: |
           echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
 
-      - name: Wait for Server Available
+      - name: Wait for Server to boot
         run: |
           sleep 15
 
