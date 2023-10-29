@@ -58,7 +58,8 @@ jobs:
         run: terraform init -upgrade
     
       - name: Terraform Destory
-        run: terraform destroy -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
+        run: terraform destroy -target=hcloud_server.discord-guild-updates -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
+
         continue-on-error: true
 
       - name: Terraform Plan
