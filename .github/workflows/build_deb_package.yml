@@ -74,21 +74,7 @@ jobs:
           echo ${{ steps.server_ip.outputs.server_ip }}
           sleep 30
 
-      # - name: Deploy deb package
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #   run: |
-      #     echo "$SSH_PRIVATE_KEY" > deploy_key
-      #     chmod 600 deploy_key
-      #     ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt-get update && apt-get install -y python3-pip"
-      #     ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "sudo apt install -y libcairo2-dev pkg-config python3-dev"
-      #     scp -i deploy_key -o StrictHostKeyChecking=no ${{ github.workspace }}/*.deb root@${{ steps.server_ip.outputs.server_ip }}:/etc
-      #     ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "dpkg -i /etc/*.deb"
-      #     ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "pip install --upgrade pip"
-      #     ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "pip install -r /usr/lib/python3/dist-packages/discord_guild_updates_bot/requirements.txt"
-      #   shell: bash
-
-      - name: Deploy deb package test
+      - name: Deploy deb package
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
