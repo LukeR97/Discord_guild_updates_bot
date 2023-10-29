@@ -8,10 +8,6 @@ resource "hcloud_server" "discord-guild-updates" {
   server_type  = "cx11"
   datacenter = "nbg1-dc3"
   ssh_keys = ["default"]
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 output "server_ip" {
