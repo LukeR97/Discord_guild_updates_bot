@@ -8,6 +8,7 @@ resource "hcloud_server" "discord-guild-updates" {
   server_type  = "cx11"
   datacenter = "nbg1-dc3"
   ssh_keys = ["default"]
+  firewall_ids = ["971359"]
 }
 
 output "server_ip" {
