@@ -95,7 +95,7 @@ jobs:
             terraform init -backend=false
             terraform init -reconfigure -backend-config="path=terraform.tfstate"
           else
-            echo "Using local state file"
+            echo "Using local state file. remote not found"
             terraform init -upgrade
           fi
       # - name: Terraform Init
