@@ -12,4 +12,5 @@ resource "hcloud_server" "discord-guild-updates" {
 
 output "server_ip" {
   value = hcloud_server.discord-guild-updates.ipv4_address
+  sensitive = true
 }
