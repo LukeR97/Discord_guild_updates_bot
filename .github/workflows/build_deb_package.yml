@@ -88,25 +88,22 @@ jobs:
           terraform_wrapper: false
 
       - name: Terraform Init
-        run: terraform init -upgrade -backend-config="path=/etc/terraform/"
+        run: terraform init -upgrade
     
       # - name: Terraform Destory
       #   run: terraform destroy -target=hcloud_server.discord-guild-updates -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
       #   continue-on-error: true
 
       - name: Terraform Plan
-        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -lock=false -out=tfplan
+        run: terraform plan -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -out=tfplan
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -lock=false tfplan
+        run: terraform apply -auto-approve tfplan
 
       - name: Get New Server IP
         id: server_ip
         run: |
-          cd ${{ github.workspace }}
-          server_ip=$(jq -r '.outputs.server_ip.value' terraform.tfstate)
-          echo "server_ip=$server_ip" >> $GITHUB_OUTPUT
-        # echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
+          echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
 
       - name: Wait for Server to boot
         run: |

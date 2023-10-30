@@ -1,9 +1,3 @@
-terraform{
-  backend "local" {
-    path = "${path.module}/terraform.tfstate"
-  }
-}
-
 provider "hcloud" {
   token = var.hcloud_token
 }
