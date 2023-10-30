@@ -72,6 +72,7 @@ jobs:
 
       - name: Retrieve TF state
         run: |
+          echo ${{ steps.get_server_ip.outputs.server_ip }}
           ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }} "mkdir -p /etc/terraform"
           scp -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate .
         shell: bash
