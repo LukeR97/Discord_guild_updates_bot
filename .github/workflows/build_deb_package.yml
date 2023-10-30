@@ -103,7 +103,9 @@ jobs:
       - name: Get New Server IP
         id: server_ip
         run: |
-          echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
+          server_ip=$(jq -r '.outputs.server_ip.value' terraform.tfstate)
+          echo "server_ip=$server_ip" >> $GITHUB_OUTPUT
+        # echo "server_ip=$(terraform output -json server_ip)" >> $GITHUB_OUTPUT
 
       - name: Wait for Server to boot
         run: |
