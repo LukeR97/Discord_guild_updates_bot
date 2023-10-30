@@ -1,6 +1,6 @@
 terraform {
   backend "remote" {
-    hostname = var.server_ip
+    hostname = "REPLACE_ME"
   }
   
 }
