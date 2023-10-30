@@ -89,7 +89,11 @@ jobs:
 
       - name: Use terraform state
         id: use_remote_state
+        env: 
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          echo "$SSH_PRIVATE_KEY" > deploy_key
+          chmod 600 deploy_key
           if scp -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate terraform.tfstate; then
             echo "Using retrieved state file"
             terraform init -backend=false
