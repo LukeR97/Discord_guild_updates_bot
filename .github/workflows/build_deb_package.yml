@@ -141,6 +141,6 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > deploy_key
           chmod 600 deploy_key
-          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "nohup python3 main.py &"
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "nohup python3 /usr/lib/python3/dist-packages/discord_guild_updates_botmain.py &"
           exit
         shell: bash
