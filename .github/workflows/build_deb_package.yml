@@ -72,8 +72,10 @@ jobs:
 
       - name: Retrieve TF state
         run: |
-          ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }} "mkdir -p /etc/terraform"
-          scp -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate .
+          echo "$SSH_PRIVATE_KEY" > deploy_key
+          chmod 600 deploy_key
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }} "mkdir -p /etc/terraform"
+          scp -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate .
         shell: bash
         continue-on-error: true
 
