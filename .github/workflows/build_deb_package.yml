@@ -23,6 +23,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y debhelper-compat=13 python3-all python3-setuptools dh-python
 
+      # We need to find the current active server in order to retrieve the state file from it
       - name: Get current server ID
         id: get_server_id
         env: 
@@ -59,10 +60,10 @@ jobs:
       - name: Create artifacts
         run: |
           cd ..
-          ls -l
           find .. -maxdepth 1 -type f -name '*.deb' -exec mv {} $GITHUB_WORKSPACE \;
         working-directory: debian
 
+      # Upload the debian package to the Github artifacts
       - name: Upload .deb package
         uses: actions/upload-artifact@v2
         with:
@@ -75,7 +76,7 @@ jobs:
           terraform_version: 1.6.2
           terraform_wrapper: false
       
-
+      # Here we are checking if the state file can be retrived from the server. If the server doesn't exist, then use a new state file
       - name: Use terraform state
         id: use_remote_state
         env: 
@@ -91,9 +92,8 @@ jobs:
             echo "Using local state file. remote not found"
             terraform init -upgrade
           fi
-      # - name: Terraform Init
-      #   run: terraform init -upgrade
     
+      # Here we want to remove the old server so that the new one can be built. However we need to allow this to continue if it fails because the server may not exist.
       - name: Terraform Destory
         run: terraform destroy -target=hcloud_server.discord-guild-updates -var="hcloud_token=${{ secrets.HETZNER_TOKEN }}" -auto-approve
         continue-on-error: true
@@ -113,6 +113,7 @@ jobs:
         run: |
           sleep 30
 
+      # Here we upload the new state file so that the next time this workflow runs, it will grab this state file and use it
       - name: Upload State File
         env: 
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -123,7 +124,7 @@ jobs:
           scp -i deploy_key -o StrictHostKeyChecking=no terraform.tfstate root@${{ steps.server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate
         shell: bash
 
-
+      # Here we need to install the debian package. As this is a Python project, there are some dependencies we need to fix first
       - name: Deploy deb package
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
