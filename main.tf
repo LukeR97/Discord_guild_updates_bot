@@ -1,3 +1,10 @@
+terraform {
+  backend "remote" {
+    hostname = var.server_ip
+  }
+  
+}
+
 provider "hcloud" {
   token = var.hcloud_token
 }
