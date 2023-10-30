@@ -53,28 +53,27 @@ jobs:
           sed -i "s|'REPLACE_GUILDURI'|'$GUILDURI'|" ./discord_guild_updates_bot/vars.py
           sed -i "s|'TOKEN'|'${{ secrets.TOKEN }}'|" ./discord_guild_updates_bot/vars.py
 
-      - name: Build .deb package
-        run: dpkg-buildpackage -us -uc
+      # - name: Build .deb package
+      #   run: dpkg-buildpackage -us -uc
 
-      - name: Create artifacts
-        run: |
-          cd ..
-          ls -l
-          find .. -maxdepth 1 -type f -name '*.deb' -exec mv {} $GITHUB_WORKSPACE \;
-        working-directory: debian
+      # - name: Create artifacts
+      #   run: |
+      #     cd ..
+      #     ls -l
+      #     find .. -maxdepth 1 -type f -name '*.deb' -exec mv {} $GITHUB_WORKSPACE \;
+      #   working-directory: debian
 
-      - name: Upload .deb package
-        uses: actions/upload-artifact@v2
-        with:
-          name: deb-package
-          path: ${{ github.workspace }}/*.deb
+      # - name: Upload .deb package
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: deb-package
+      #     path: ${{ github.workspace }}/*.deb
 
 
       - name: Retrieve TF state
         run: |
-          echo ${{ steps.get_server_ip.outputs.server_ip }}
-          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }} "mkdir -p /etc/terraform"
-          scp -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate .
+          ssh -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }} "mkdir -p /etc/terraform"
+          scp -i $SSH_PRIVATE_KEY -o StrictHostKeyChecking=no root@${{ steps.get_server_ip.outputs.server_ip }}:/etc/terraform/terraform.tfstate .
         shell: bash
         continue-on-error: true
 
