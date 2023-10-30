@@ -37,13 +37,16 @@ python "C:\Users\user\path\to\main.py"
 
 ~~Another goal is to make it so that after the initial execution on startup, the bot will periodically check against the Blizzard API to see if there were any updates throughout the day. This should really only have to be done once or twice during the day as updates can be slow to reach the API~~ COMPLETE ! Now the bot will run every six hours and is now hosted in the cloud so it is not relient on my local machine to run.
 
-Further improvements will be looking deeper into the Blizzard API to see what extra functionality is available. I would like to be able to automatically set notes on new members or alter their in-game rank, but we will have to see what limits are available.
-
-Currently working on getting the bot to be automatically deployed to Hetzner cloud upon a push to the repo being made. Currently configuring a .deb package to be created and will then be focusing on server deployment with Terraform.
+~~Currently working on getting the bot to be automatically deployed to Hetzner cloud upon a push to the repo being made. Currently configuring a .deb package to be created and will then be focusing on server deployment with Terraform.~~ COMPLETE! Now when a code push is made, we package up our code into a debian package and redeploy our Hetzner server using terraform and deploy the package automatically.
 
    1. ~~Add secrets to vars file~~ COMPLETE
    2. ~~Create Debian package when code is pushed to Github repo~~ COMPLETE
-   3. Use Terraform and Github actions to recreate Hetzner server and deploy .deb package
+   3. ~~Use Terraform and Github actions to recreate Hetzner server and deploy .deb package~~ COMPLETE
+
+There is still a lot of optimization to be gained from the Github actions workflow. My next plan will be to split up the jobs so that we have a job for the debian workflow and one for Terraform.
+Also due to costs, there has to be some concessions made with state file management as permanent hosting of the state file would become pricey over the long term, I have opted for state file hosting within the Hetzner server itself.
+
+Further improvements will be looking deeper into the Blizzard API to see what extra functionality is available. I would like to be able to automatically set notes on new members or alter their in-game rank, but we will have to see what limits are available.
 
 
 # Other Notes
