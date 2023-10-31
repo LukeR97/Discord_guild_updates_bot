@@ -136,6 +136,16 @@ jobs:
           ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "dpkg -i /etc/*.deb; pip install --upgrade pip; pip install -r /usr/lib/python3/dist-packages/discord_guild_updates_bot/requirements.txt"
         shell: bash
 
+      - name: Install fail2ban and disable password login
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > deploy_key
+          chmod 600 deploy_key
+          ssh -i deploy_key -o StrictHostKeyChecking=no root@${{ steps.server_ip.outputs.server_ip }} "apt install -y fail2ban && \
+          sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
+          systemctl restart sshd"
+
       - name: Start bot
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
