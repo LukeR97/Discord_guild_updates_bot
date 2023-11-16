@@ -1,4 +1,4 @@
-![Discord Guild Updates](https://github.com/LukeR97/Discord_guild_updates_bot/actions/workflows/deploy-bot.yml/badge.svg)
+![Deploy Bot](https://github.com/LukeR97/Discord_guild_updates_bot/actions/workflows/deploy-bot.yml/badge.svg)
 
 # Discord_guild_updates_bot
 
