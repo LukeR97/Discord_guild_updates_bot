@@ -1,3 +1,5 @@
+![Discord Guild Updates](https://github.com/LukeR97/Discord_guild_updates_bot/actions/workflows/deploy-bot.yml/badge.svg)
+
 # Discord_guild_updates_bot
 
 I got tired of slow RSS feeds or 3rd party guild monitoring sites not showing me the most up to date or accurate version of my guilds roster, so I decided to build my own guild notification bot. This bot is designed to fetch any changes to your World of Warcraft guild roster. The bot is running in the cloud and checks for an update once every 6 hours. It could be configued to run on a more frequent schedule, but money :^)
