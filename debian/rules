@@ -10,7 +10,7 @@ override_dh_auto_install:
 	mkdir -p $(CURDIR)/debian/discord-guild-updates-bot/usr/lib/python3/dist-packages/
 	cp -r discord_guild_updates_bot/ $(CURDIR)/debian/discord-guild-updates-bot/usr/lib/python3/dist-packages/
 	mkdir -p $(CURDIR)/debian/discord-guild-updates-bot/etc/systemd/system/
-    cp debian/*.service $(CURDIR)/debian/discord-guild-updates-bot/etc/systemd/system/
+	cp debian/*.service $(CURDIR)/debian/discord-guild-updates-bot/etc/systemd/system/
 
 override_dh_installdocs:
 	dh_installdocs --all
