@@ -1,4 +1,4 @@
-name: Build Debian Package
+name: Deploy Bot
 
 on:
   push:
