@@ -1,0 +1,12 @@
+[Unit]
+Description=Discord Guild Updates Bot
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/usr/lib/python3/dist-packages/discord_guild_updates_bot/
+ExecStart=/usr/bin/python3 /usr/lib/python3/dist-packages/discord_guild_updates_bot/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
