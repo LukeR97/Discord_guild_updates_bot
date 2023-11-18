@@ -60,7 +60,10 @@ jobs:
         env:
           GUILDURI: ${{ secrets.GUILDURI }}
         run: |
-          sed -i "s|'CLIENT_ID'|'${{ secrets.CLIENT_ID }}'|; s|'CLIENT_SECRET'|'${{ secrets.CLIENT_SECRET }}'|; s|'REPLACE_GUILDURI'|'$GUILDURI'|; s|'TOKEN'|'${{ secrets.TOKEN }}'|" ./discord_guild_updates_bot/vars.py
+          sed -i "s|'CLIENT_ID'|'${{ secrets.CLIENT_ID }}'|" ./discord_guild_updates_bot/vars.py
+          sed -i "s|'CLIENT_SECRET'|'${{ secrets.CLIENT_SECRET }}'|" ./discord_guild_updates_bot/vars.py
+          sed -i "s|'REPLACE_GUILDURI'|'$GUILDURI'|" ./discord_guild_updates_bot/vars.py
+          sed -i "s|'TOKEN'|'${{ secrets.TOKEN }}'|" ./discord_guild_updates_bot/vars.py
 
       - name: Build .deb package
         run: dpkg-buildpackage -us -uc
